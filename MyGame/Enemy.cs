@@ -46,5 +46,19 @@ namespace MyGame
             if (newName.Length > 8) name = newName.Substring(0,8);
             else name = newName;
         } 
+
+        public void PickupPowerUp(PowerUp powerUp,float amount)
+        {
+            if (powerUp == PowerUp.Health)
+            {
+                health += amount;
+                if (health > 100) {health = 100;}
+            }
+            if (powerUp == PowerUp.Shield)
+            {
+                shield += amount;
+                if (shield > 100) {shield = 100;}
+            }
+        }
     }
 }
