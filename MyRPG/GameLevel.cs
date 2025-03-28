@@ -1,5 +1,6 @@
 using System;
-
+using System.Linq;
+using Humanizer;
 
 public class GameLevel
     {
@@ -12,14 +13,18 @@ public class GameLevel
         {
             this.manyRooms = manyRooms;
             this.howHard = howHard;
-            enemie = new MyRPG.Enemy[manyRooms];
+            for (int i=0; i < manyRooms; i++)
+            {
+                enemie.Append(null);
+            }
             manyEnemies = 0;
             
         }
 
         public void SetEnemyInRoom(int idRom, MyRPG.Enemy enemy)
         {
-            enemie[idRom] = enemy;
+            if (enemie[manyRooms] != null) return;
+            enemie[manyRooms] = enemy;
             manyEnemies++;
         }
 
@@ -41,7 +46,11 @@ public class GameLevel
         public void PrintEnemies()
         {
             foreach (MyRPG.Enemy enemy in enemie)
-                Console.WriteLine($"Room {Array.IndexOf(enemie,enemy)}: {enemy.GetName()}");
+            {
+                if (enemy == null) continue;
+                int index = enemie.IndexOf(enemy);
+                Console.WriteLine($"Room {index.ToRoman()}: {enemy.GetName()}");
+            }
         }
     }
     public enum PowerUp {Health, Shield};
