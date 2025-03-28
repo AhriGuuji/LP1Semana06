@@ -35,16 +35,26 @@ namespace MyRPG
         }
     }
 
-    public class GameLevel(int manyRooms, Hardness howHard)
+    public class GameLevel
     {
+        private int manyRooms;
+        private Hardness howHard;
         private int manyEnemies;
+        private Enemy[] enemie;
+
+        public GameLevel(int manyRooms, Hardness howHard)
+        {
+            this.manyRooms = manyRooms;
+            this.howHard = howHard;
+            manyEnemies = enemie.Length;
+        }
 
         public void SetEnemyInRoom(int idRom, Enemy enemy)
         {
-            
+            enemie[idRom] = enemy;
         }
 
-        public Hardness GetDifficulty()
+        public Hardness GetHardness()
         {
             return howHard;
         }
@@ -58,9 +68,12 @@ namespace MyRPG
         {
             return manyEnemies;
         }
+
+        public void PrintEnemies()
+        {
+            foreach (Enemy enemy in enemie)
+                Console.WriteLine($"Room {enemie}: {enemy.GetName()}");
+        }
     }
-
     public enum PowerUp {Health, Shield};
-
-    public enum Hardness {Easy, Normal, Hard};
 }
