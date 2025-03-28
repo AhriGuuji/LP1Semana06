@@ -32,13 +32,13 @@ namespace MyGame
             }
         }
 
-        public void GetShield(float amoutGained)
+        public float GetShield()
         {
-            shield += amoutGained;
+            return shield;
         }
-        public void GetHealth(float amoutGained)
+        public float GetHealth()
         {
-            health += amoutGained;
+            return health;
         }
 
         public void SetName(string newName)
