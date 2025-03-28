@@ -24,6 +24,4 @@ namespace MyGame
             Console.WriteLine(Enemy.HowManyPowerUps());
         }
     }
-
-    public enum PowerUp {Health, Shield};
 }
