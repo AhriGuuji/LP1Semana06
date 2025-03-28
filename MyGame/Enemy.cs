@@ -7,10 +7,17 @@ namespace MyGame
         private string name;
         private float health;
         private float shield;
+        private static int quantityPU;
+
+        static Enemy()
+        {
+            quantityPU = 0;
+        }
 
         public Enemy(string name)
         {
             this.name = name;
+            quantityPU = 0;
             health = 100;
             shield = 0;
         }
@@ -59,6 +66,12 @@ namespace MyGame
                 shield += amount;
                 if (shield > 100) {shield = 100;}
             }
+            quantityPU++;
+        }
+
+        public static int HowManyPowerUps()
+        {
+            return quantityPU;
         }
     }
 }
