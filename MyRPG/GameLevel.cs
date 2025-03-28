@@ -2,30 +2,31 @@ using System;
 using System.Linq;
 using Humanizer;
 
-public class GameLevel
+namespace MyRPG
+{
+    public class GameLevel
     {
         private int manyRooms;
         private Hardness howHard;
         private int manyEnemies;
-        private MyRPG.Enemy[] enemie;
+        private Enemy[] enemies;  // Changed from enemie to enemies
 
         public GameLevel(int manyRooms, Hardness howHard)
         {
             this.manyRooms = manyRooms;
             this.howHard = howHard;
-            for (int i=0; i < manyRooms; i++)
-            {
-                enemie.Append(null);
-            }
-            manyEnemies = 0;
-            
+            this.enemies = new Enemy[manyRooms];  // Initialize array with proper size
+            this.manyEnemies = 0;
         }
 
-        public void SetEnemyInRoom(int idRom, MyRPG.Enemy enemy)
+        public void SetEnemyInRoom(int roomId, Enemy enemy)
         {
-            if (enemie[manyRooms] != null) return;
-            enemie[manyRooms] = enemy;
-            manyEnemies++;
+            // Check for valid room index and that the room is empty
+            if (roomId >= 0 && roomId < manyRooms && enemies[roomId] == null)
+            {
+                enemies[roomId] = enemy;
+                manyEnemies++;
+            }
         }
 
         public Hardness GetHardness()
@@ -45,12 +46,16 @@ public class GameLevel
 
         public void PrintEnemies()
         {
-            foreach (MyRPG.Enemy enemy in enemie)
+            for (int i = 0; i < enemies.Length; i++)
             {
-                if (enemy == null) continue;
-                int index = enemie.IndexOf(enemy);
-                Console.WriteLine($"Room {index.ToRoman()}: {enemy.GetName()}");
+                if (enemies[i] != null)
+                {
+                    // Note: Humanizer's ToRoman starts with 1, so we use i+1
+                    Console.WriteLine($"Room {(i + 1).ToRoman()}: {enemies[i].GetName()}");
+                }
             }
         }
     }
-    public enum PowerUp {Health, Shield};
+
+    public enum PowerUp { Shield, Health }
+}
